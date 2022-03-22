@@ -1,0 +1,93 @@
+notification-body[position^="top"] {
+    top: 0px;
+}
+
+notification-body[position^="bottom"] {
+    bottom: 0px;
+}
+
+notification-body[position^="center"] {
+    top: 50%;
+    bottom: 50%;
+}
+
+notification-body[position$="left"] {
+    left: 0px;
+}
+
+notification-body[position$="right"] {
+    right: 0px;
+}
+
+notification-body[position$="center"] {
+    left: 50%;
+    right: 50%;
+}
+
+notification-body {
+    margin: 10px;
+    position: absolute;
+}
+
+notification-body > div.notification {
+    background-color: var(--nbg);
+    color: var(--ntc);
+}
+
+div.notification {
+    border: var(--bw) var(--bcol) var(--bs);
+    border-radius: var(--br);
+    padding: 5px;
+    max-width: 20vw;
+    min-width: 10vw;
+}
+
+div.notification>* {
+    margin: 0px;
+}
+
+div.notification>h1.notification-title {
+    margin-bottom: 5px;
+}
+
+div.notification>div.buttons{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
+div.notification>div.buttons>a{
+    color: var(--nbc);
+    font-weight: bolder;
+    cursor: var(--nbcur);
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+:root {
+    --nbc: green;
+    --nbcur: pointer;
+    --nbg: blueviolet;
+    --ntc: whitesmoke;
+    --br: .5em;
+    --bw: 2px;
+    --bs: solid;
+    --bcol: black;
+}
+
+div.notification.disappear {
+    animation: disappear 1.01s ease-in-out;
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 100%;
+    }
+
+    100% {
+        opacity: 0%;
+    }
+}
