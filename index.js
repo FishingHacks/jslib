@@ -86,8 +86,84 @@ HTMLNotification.open = function (id) {
   document.querySelector("notification-body").append(not);
 };
 
+class HTMLModal {
+  title = "";
+  body = "";
+  closed = true;
+  buttons = {};
+  style = "";
+  id = "";
+  constructor(title, body, buttons = [], style = "") {
+    buttons.unshift(["close", (m) => m.close(), "bg-gray"]);
+    this.title = title;
+    this.body = body;
+    buttons.forEach(
+      (el) =>
+        (this.buttons[sajdksaljfklsdjfklasjdklasjdlkasjkda.createID()] = el)
+    );
+    this.style = style;
+    this.id = sajdksaljfklsdjfklasjdklasjdlkasjkda.createID();
+    sajdksaljfklsdjfklasjdklasjdlkasjkda.modals[this.id] = this;
+  }
+
+  open() {
+    let modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.id = "modal-" + this.id;
+    let title = document.createElement("h1");
+    title.textContent = this.title;
+    let hbody = document.createElement("p");
+    this.body.split("\n").forEach((el) => {
+      hbody.appendChild(document.createElement("br"));
+      hbody.appendChild(document.createTextNode(el));
+    });
+    hbody.removeChild(hbody.children[0]);
+
+    let buttons = document.createElement("div");
+    buttons.classList.add("buttons");
+
+    let vals = Object.values(this.buttons);
+    Object.keys(this.buttons).forEach((el, i) => {
+      let id = el;
+      let mid = this.id;
+      let t = vals[i][0];
+      let s = vals[i][2];
+      let a = document.createElement("a");
+      a.classList.add(s);
+      a.setAttribute(
+        "onclick",
+        "executemodalcommand('" + mid + "', '" + id + "')"
+      );
+      a.textContent = t;
+      buttons.append(a);
+    });
+
+    modal.append(title, hbody, buttons);
+    document.body.append(modal);
+  }
+  close() {
+    try {
+      let n = document.getElementById("modal-" + this.id);
+      n.parentElement.removeChild(n);
+    } catch (e) {}
+  }
+
+  get closed() {return !bool(document.getElementById("modal-" + this.id));}
+}
+
+function executemodalcommand(mid, id) {
+  console.log(
+    sajdksaljfklsdjfklasjdklasjdlkasjkda.modals[mid].buttons[id][1],
+    sajdksaljfklsdjfklasjdklasjdlkasjkda.modals[mid]
+  );
+  sajdksaljfklsdjfklasjdklasjdlkasjkda.modals[mid].buttons[id][1](
+    sajdksaljfklsdjfklasjdklasjdlkasjkda.modals[mid]
+  );
+}
+
 const sajdksaljfklsdjfklasjdklasjdlkasjkda = {
   notifications: {},
+  modals: {},
   createID() {
     return btoa(
       Math.random() * Date.now() +
@@ -127,6 +203,7 @@ const sajdksaljfklsdjfklasjdklasjdlkasjkda = {
 
 function loadSystems() {
   console.log("Loading notification system...");
+  console.log("Loading Modal system...");
   sajdksaljfklsdjfklasjdklasjdlkasjkda.update();
 }
 

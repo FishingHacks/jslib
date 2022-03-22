@@ -76,6 +76,7 @@ div.notification>div.buttons>a{
     --bw: 2px;
     --bs: solid;
     --bcol: black;
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 div.notification.disappear {
@@ -90,4 +91,69 @@ div.notification.disappear {
     100% {
         opacity: 0%;
     }
+}
+
+.modal, div.notification {
+    font-family: var(--font);
+}
+
+.modal {
+    z-index: 100000;
+    border-radius: .5em;
+    border: black 2px solid;
+    left: 30%;
+    right: 30%;
+    top: 25%;
+    bottom: 75%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    max-width: 50%;
+    height: fit-content;
+    max-height: 50%;
+    padding: 10px;
+    box-shadow: 5px 5px 5px black;
+}
+
+.modal>*:not(.buttons) {
+    margin: 0px;
+}
+
+.bg-green {
+    background-color: green;
+}
+
+.bg-red {
+    background-color: red;
+}
+
+.bg-gray {
+    background-color: gray;
+}
+
+.bg-yellow {
+    background-color: yellow;
+    color: black !important;
+}
+
+.modal > .buttons > a {
+    padding: 6px;
+    color: white;
+    border-radius: .5em;
+    padding-left: 12px;
+    padding-right: 12px;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.bg-purple {
+    background-color: purple;
+    color: aliceblue;
+}
+
+.modal>.buttons {
+    display: flex;
+    flex-wrap: wrap;
 }
