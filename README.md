@@ -16,7 +16,8 @@ together in a array
 
 
 ## Notifications
-Info: Notifications automatically disappear after 7 seconds
+Info: Notifications automatically disappear after 7 seconds.
+
 It uses the same syntax as the modals, with the difference, that it doesn't use the last button-styling option, and the class you will use is HTMLNotification
 
 example:
