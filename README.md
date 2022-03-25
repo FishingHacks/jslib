@@ -31,3 +31,26 @@ closing works about the same:
 modal/notification.close();
 
 to modify the body, use modal/notification.body, the title .title. You need to reopen them using .close(); and .open();
+
+
+
+## The TableMaker
+The tablemaker uses the following format:
+
+{
+    char: [...elements]
+}
+
+To use it, use the function makeTable(table);
+
+example:
+```js
+const table = {
+    "user": ["name", "passwordHash", "profilePicture"],
+    "product": ["name", "price", "picture", "amountLeft"],
+}
+document.querySelectorAll("tables")[0].append(makeTable(table));
+```
+
+## easyAnchors (a-tag)
+We added the functionality, to give an a tag a class with the format event:function, for example: \<a class="click:(e)=>{console.log(e)}">click me</a>. This logs the PointerEvent in the console, everytime you click on that a-element. When window.DISABLEANCHORS (before the load event is triggered, so at best in the header, in the first script tag) is set to true, this feature will be disabled (Hopefully), why this could be useful: You prevent code execution on your site, because classes are normally safe, and won't be removed by the sanitizers

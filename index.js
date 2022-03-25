@@ -148,7 +148,9 @@ class HTMLModal {
     } catch (e) {}
   }
 
-  get closed() {return !bool(document.getElementById("modal-" + this.id));}
+  get closed() {
+    return !bool(document.getElementById("modal-" + this.id));
+  }
 }
 
 function executemodalcommand(mid, id) {
@@ -162,6 +164,18 @@ function executemodalcommand(mid, id) {
 }
 
 const sajdksaljfklsdjfklasjdklasjdlkasjkda = {
+  loadEasyA: function () {
+    let as = Object.values(document.querySelectorAll("a"));
+    as.forEach((el) => {
+      el.classList.forEach((clazz) => {
+        if (clazz.split(":")[1]) {
+          el.addEventListener(clazz.split(":")[0], (...args) =>
+            eval(clazz.split(":")[1])(...args)
+          );
+        }
+      });
+    });
+  },
   notifications: {},
   modals: {},
   createID() {
@@ -201,9 +215,85 @@ const sajdksaljfklsdjfklasjdklasjdlkasjkda = {
   },
 };
 
+/**
+ * @param {{[name: string]: Array<T>}} obj
+ */
+function makeTable(obj) {
+  let longestLength = Object.values(obj).reduce(
+    (a, el) => (el.length > a ? el.length : a),
+    Object.values(obj)[0] ? Object.values(obj)[0].length : 0
+  );
+  let indexes = [];
+  let i = 0;
+  while (i < longestLength) {
+    indexes.push(i);
+    i++;
+  }
+  let table = document.createElement("table");
+  let tmp = document.createElement("tr");
+  let tmp1 = document.createElement("th");
+  tmp1.setAttribute(
+    "style",
+    "padding:3px;backdrop-filter: drop-shadow(2px 4px 6px black);background: #ffffff2b;"
+  );
+  tmp.append(tmp1);
+  tmp1.textContent = "(index)";
+  indexes.forEach((el) => {
+    let _el = document.createElement("th");
+    _el.textContent = el.toString();
+    _el.setAttribute(
+      "style",
+      "padding:3px;backdrop-filter: drop-shadow(2px 4px 6px black);background: #ffffff2b;"
+    );
+    tmp.append(_el);
+  });
+  table.append(tmp);
+  let ks = Object.keys(obj);
+  Object.values(obj).forEach((el, i) => {
+    tmp = document.createElement("tr");
+    let name = ks[i];
+    tmp1 = document.createElement("th");
+    tmp1.setAttribute(
+      "style",
+      "padding:3px;backdrop-filter: drop-shadow(2px 4px 6px black);background: #ffffff2b;"
+    );
+    tmp1.textContent = name;
+    tmp.append(tmp1);
+    el.forEach((el) => {
+      _el = document.createElement("td");
+      _el.textContent = el != undefined && el != null ? el : "";
+      _el.setAttribute(
+        "style",
+        "padding:3px;backdrop-filter: drop-shadow(2px 4px 6px black);background: #ffffff2b;"
+      );
+      tmp.append(_el);
+    });
+    table.append(tmp);
+  });
+  table.setAttribute(
+    "style",
+    "display: inline-block;border-radius: .5em;padding: 3px;background: linear-gradient(45deg, blueviolet, mediumvioletred);"
+  );
+  return table;
+}
+
+function makeNumbers(i) {
+  let ret = [];
+  let _i = 0;
+  while (_i < i) {
+    ret.push(Math.floor(Math.random() * 3299) / 10);
+    _i++;
+  }
+  return ret;
+}
+
 function loadSystems() {
   console.log("Loading notification system...");
   console.log("Loading Modal system...");
+  if (!window.DISABLEANCHORS) {
+    console.log("Loading easy Anchors...");
+    sajdksaljfklsdjfklasjdklasjdlkasjkda.loadEasyA();
+  } else console.log("easyAnchors are disabled");
   sajdksaljfklsdjfklasjdklasjdlkasjkda.update();
 }
 
