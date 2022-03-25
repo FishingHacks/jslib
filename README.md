@@ -1,5 +1,9 @@
 # jslib
 
+# WARNING
+Read the WHOLE Readme, this package **can** have multiple security vulnerabilities, when used wrong! (the main one is XSS)
+
+
 ## Modals
 To create a modal, use the following syntax:
 
