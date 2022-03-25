@@ -16,7 +16,8 @@ together in a array
 
 
 ## Notifications
-Info: Notifications automatically disappear after 7 seconds
+Info: Notifications automatically disappear after 7 seconds.
+
 It uses the same syntax as the modals, with the difference, that it doesn't use the last button-styling option, and the class you will use is HTMLNotification
 
 example:
@@ -31,8 +32,6 @@ closing works about the same:
 modal/notification.close();
 
 to modify the body, use modal/notification.body, the title .title. You need to reopen them using .close(); and .open();
-
-
 
 ## The TableMaker
 The tablemaker uses the following format:
