@@ -1,19 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-    <script>
-      //To reactivate easyAnchors, set it to false, or remove it completely
-      window.DISABLEANCHORS=true;
-    </script>
-    <script src="index.js"></script>
-  </head>
-  <body>
-    <notification-body position="top-right"></notification-body>
-    <a style="cursor: pointer;" class="click:console.log">Click me!</a>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script>
+    //To deactivate easyAnchors, remove the comment
+    //window.DISABLEANCHORS=true;
+    function load() {
+      function makeNumber(i) {
+        return Math.floor(Math.random() * i);
+      }
+
+      function makeNumbers() {
+        let arr = [];
+        let i = 0;
+        while (i < 200) {
+          arr.push(makeNumber(150));
+          i++;
+        }
+        return arr;
+      }
+
+      window.addEventListener("load", () =>
+        drawGraph(makeNumbers(), document.body, 10, 5, 1400, 800)
+      );
+
+      document.append(makeTable({ a: [1, 2, 3], b: [1, 2, 3] }));
+    }
+  </script>
+  <script src="index.js"></script>
+</head>
+
+<body onload="load();">
+  <notification-body position="top-right"></notification-body>
+  <a style="cursor: pointer;"
+    class="click:()=>createHTMLModal('Info','This_is_a_test_Modal!',[['Delete',()=>createHTMLNotification('title','body',[['close',(n)=>n.smoothClose()]]).open(),'bg-red']]).open()">Click
+    me!</a>
+  </div>
+</body>
+
 </html>

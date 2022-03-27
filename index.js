@@ -169,9 +169,10 @@ const sajdksaljfklsdjfklasjdklasjdlkasjkda = {
     as.forEach((el) => {
       el.classList.forEach((clazz) => {
         if (clazz.split(":")[1]) {
-          el.addEventListener(clazz.split(":")[0], (...args) =>
-            eval(clazz.split(":")[1])(...args)
-          );
+          el.addEventListener(clazz.split(":")[0], (...args) => {
+            console.log(args, clazz);
+            eval(clazz.split(":")[1])(...args);
+          });
         }
       });
     });
@@ -214,6 +215,9 @@ const sajdksaljfklsdjfklasjdklasjdlkasjkda = {
     requestAnimationFrame(sajdksaljfklsdjfklasjdklasjdlkasjkda.update);
   },
 };
+
+function createHTMLModal(title, body, buttons=[], style="") {return new HTMLModal(title, body, buttons, style)}
+function createHTMLNotification(title, body, buttons=[], style="") {return new HTMLNotification(title, body, buttons, style)}
 
 /**
  * @param {{[name: string]: Array<T>}} obj
@@ -288,6 +292,12 @@ function makeNumbers(i) {
 }
 
 function loadSystems() {
+  console.log(
+    "Rick Astley - Never Gonna Give You Up\n\n  01:43 ━━━━●───── 03:32\n   ⇆ㅤ ㅤ◁ㅤ ❚❚ ㅤ▷ ㅤㅤ↻"
+  );
+  console.log(
+    "PCs are like Air Conditioning - They become useless, when you open Windows"
+  );
   console.log("Loading notification system...");
   console.log("Loading Modal system...");
   if (!window.DISABLEANCHORS) {
@@ -295,6 +305,225 @@ function loadSystems() {
     sajdksaljfklsdjfklasjdklasjdlkasjkda.loadEasyA();
   } else console.log("easyAnchors are disabled");
   sajdksaljfklsdjfklasjdklasjdlkasjkda.update();
+  let s = document.createElement("style");
+  s.textContent = css;
+  document.head.append(s);
 }
 
 window.addEventListener("load", loadSystems);
+
+/** I-----------------------------------------------I
+ *                      Styling
+ *  I-----------------------------------------------I
+ */
+
+let css = `notification-body[position^="top"] {
+  top: 0px;
+}
+
+notification-body[position^="bottom"] {
+  bottom: 0px;
+}
+
+notification-body[position^="center"] {
+  top: 50%;
+  bottom: 50%;
+}
+
+notification-body[position$="left"] {
+  left: 0px;
+}
+
+notification-body[position$="right"] {
+  right: 0px;
+}
+
+notification-body[position$="center"] {
+  left: 50%;
+  right: 50%;
+}
+
+notification-body {
+  margin: 10px;
+  position: absolute;
+}
+
+notification-body > div.notification {
+  background-color: var(--nbg);
+  color: var(--ntc);
+}
+
+div.notification {
+  border: var(--bw) var(--bcol) var(--bs);
+  border-radius: var(--br);
+  padding: 5px;
+  max-width: 20vw;
+  min-width: 10vw;
+}
+
+div.notification>* {
+  margin: 0px;
+}
+
+div.notification>h1.notification-title {
+  margin-bottom: 5px;
+}
+
+div.notification>div.buttons{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+}
+
+div.notification>div.buttons>a{
+  color: var(--nbc);
+  font-weight: bolder;
+  cursor: var(--nbcur);
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+:root {
+  --nbc: green;
+  --nbcur: pointer;
+  --nbg: blueviolet;
+  --ntc: whitesmoke;
+  --br: .5em;
+  --bw: 2px;
+  --bs: solid;
+  --bcol: black;
+  --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+div.notification.disappear {
+  animation: disappear 1.01s ease-in-out;
+}
+
+@keyframes disappear {
+  0% {
+      opacity: 100%;
+  }
+
+  100% {
+      opacity: 0%;
+  }
+}
+
+.modal, div.notification {
+  font-family: var(--font);
+}
+
+.modal {
+  z-index: 100000;
+  border-radius: .5em;
+  border: black 2px solid;
+  left: 30%;
+  right: 30%;
+  top: 25%;
+  bottom: 75%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  max-width: 50%;
+  height: fit-content;
+  max-height: 50%;
+  padding: 10px;
+  box-shadow: 5px 5px 5px black;
+}
+
+.modal>*:not(.buttons) {
+  margin: 0px;
+}
+
+.bg-green {
+  background-color: green;
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.bg-gray {
+  background-color: gray;
+}
+
+.bg-yellow {
+  background-color: yellow;
+  color: black !important;
+}
+
+.modal > .buttons > a {
+  padding: 6px;
+  color: white;
+  border-radius: .5em;
+  padding-left: 12px;
+  padding-right: 12px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.bg-purple {
+  background-color: purple;
+  color: aliceblue;
+}
+
+.modal>.buttons {
+  display: flex;
+  flex-wrap: wrap;
+}`;
+
+function drawGraph(
+  arr,
+  el,
+  widthInBetween = 5,
+  heightInBetween = 2,
+  maxWidth = -1,
+  maxHeight = -1
+) {
+  arr = arr.map((el) => el * -1);
+  let width = widthInBetween * (arr.length + 1) + 20;
+  let lowest = arr.reduce((acc, el) => (el < acc ? el : acc), Infinity);
+  let highest = arr.reduce((acc, el) => (el > acc ? el : acc), -Infinity);
+  let height = (Math.abs(lowest) + Math.abs(highest) + 1) * heightInBetween;
+  let normalize = 0 - lowest;
+  let canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  let ctx = canvas.getContext("2d");
+  let i = lowest;
+  let _i = 0;
+  while (i < highest) {
+    ctx.fillText(i * -1, 5, _i * heightInBetween, 15);
+    i += 20 / heightInBetween;
+    _i += 20 / heightInBetween;
+  }
+  ctx.beginPath();
+  moveTo(
+    0 * widthInBetween + widthInBetween / 2 + 20,
+    (arr[0] + normalize) * heightInBetween + heightInBetween / 2
+  );
+  let tmp = arr.shift();
+  arr.forEach((el, i) => {
+    ctx.lineTo(
+      i * widthInBetween + widthInBetween / 2 + 20,
+      (el + normalize) * heightInBetween + heightInBetween / 2
+    );
+  });
+  arr.unshift(tmp);
+  4;
+  ctx.stroke();
+  if (maxHeight == -1 || maxWidth == -1) el.append(canvas);
+  else {
+    let div = document.createElement("div");
+    div.append(canvas);
+    if (maxWidth != -1) div.style.maxWidth = maxWidth + "px";
+    if (maxHeight != -1) div.style.maxHeight = maxHeight + "px";
+    div.style.overflow = "scroll";
+    el.append(div);
+  }
+}
